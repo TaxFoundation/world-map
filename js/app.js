@@ -7,9 +7,9 @@ var highColor = '#00ff00';
 var width = 1600;
 var height = 800;
 
-var addFill = d3.scale.linear().domain([lowValue, highValue])
+var color = d3.scale.linear().domain([lowValue, highValue])
   .interpolate(d3.interpolateHcl)
-  .range([d3.rgb(lowcolor), d3.rgb(highColor)]);
+  .range([d3.rgb(lowColor), d3.rgb(highColor)]);
 
 var svg = d3.select('#container').append('svg')
   .attr('width', width).attr('height', height);
@@ -38,8 +38,8 @@ function ready(error, world, data) {
     .attr('id', function (d) { return 'c' + d.id; });
 
   data.forEach(function (e, i, a) {
-    d3.selectAll('#c' + e.id)
-      .attr('fill', color(e.tax));
+    d3.selectAll('#c' + e['UN Country Code'])
+      .attr('fill', color(e.Rate));
   });
 }
 
