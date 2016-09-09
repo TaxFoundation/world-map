@@ -1,15 +1,15 @@
 var data = 'data/taxes.csv';
-var lowValue = 0;
-var highValue = 55;
-var lowColor = '#91e591';
-var highColor = '#1d085e';
-var year = 2004;
+var lowValue = 10;
+var highValue = 35;
+var lowColor = '#f0f9e8';
+var highColor = '#0868ac';
+var year = 2016;
 
 var width = 800;
 var height = 400;
 
 var color = d3.scale.linear().domain([lowValue, highValue])
-  .interpolate(d3.interpolateHcl)
+  .interpolate(d3.interpolateHsl)
   .range([d3.rgb(lowColor), d3.rgb(highColor)]);
 
 var svg = d3.select('#container').append('svg')
@@ -45,7 +45,7 @@ function ready(error, world, data) {
   })
   .forEach(function (e, i, a) {
     d3.selectAll('#c' + e['UN Country Code'])
-      .attr('fill', color(e.Rate));
+      .attr('fill', selectFill(e.Rate));
   });
 }
 
@@ -59,3 +59,13 @@ function ready(error, world, data) {
 //       return '#eeeeee';
 //   }
 // }
+
+function selectFill(value) {
+  if (value <= lowValue) {
+    return lowColor;
+  } else if (value >= highValue) {
+    return highColor;
+  } else {
+    return color(value);
+  }
+}
